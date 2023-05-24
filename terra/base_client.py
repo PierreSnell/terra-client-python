@@ -387,9 +387,7 @@ class Terra:
             "auth_success_redirect_url": auth_success_redirect_url,
             "auth_failure_redirect_url": auth_failure_redirect_url,
             "reference_id": reference_id,
-        }
-        body_payload.update(kwargs)
-
+        } | kwargs
         auth_resp = requests.post(
             f"{constants.BASE_URL}/auth/authenticateUser",
             headers=self._auth_headers,
@@ -477,10 +475,7 @@ class Terra:
             digestmod=hashlib.sha256,
         ).hexdigest()
 
-        if computed_signature != sig:
-            return False
-        # Signature was validated
-        return True
+        return computed_signature == sig
 
     def handle_flask_webhook(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
         """
@@ -496,9 +491,7 @@ class Terra:
 
         if not self.check_terra_signature(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
             return None
-        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
-
-        return ff
+        return api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
 
     def handle_webhook(
         self, payload: str, terra_signature_header: str

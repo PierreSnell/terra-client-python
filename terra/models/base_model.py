@@ -90,7 +90,7 @@ class TerraDataModel:
         fields_dict = {field.name: field.type for field in dataclasses.fields(self)}
         # print(fields_dict)
 
-        for field_name, field_type in fields_dict.items():
+        for field_name in fields_dict:
             try:
                 if isinstance(getattr(self, field_name, None), TerraDataModel):
                     for sub_term in field_name.lower().split("_"):
@@ -153,10 +153,10 @@ class TerraDataModel:
 
                         # adding terra before the models name
                         if current_field_type.split(".")[0] == "models":
-                            current_field_type = "terra." + current_field_type
+                            current_field_type = f"terra.{current_field_type}"
 
                         if current_field_type2.split(".")[0] == "models":
-                            current_field_type2 = "terra-client." + current_field_type2
+                            current_field_type2 = f"terra-client.{current_field_type2}"
 
                         # check if the elements of the list are Terra Data Models
                         if current_field_type.split(".")[0] == "terra":

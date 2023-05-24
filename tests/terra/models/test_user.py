@@ -14,4 +14,4 @@ def test_parsing_user():
 def test_no_client_user():
     user = User()
     with pytest.raises(exceptions.NoClientAvailable):
-        user.get_activity(datetime.datetime.today())
+        user.get_activity(datetime.datetime.now())
