@@ -58,7 +58,7 @@ setup(
     author="Terra Enabling Developers",
     author_email="dev@tryterra.co",
     url="https://github.com/tryterra/terra-client-python",
-    packages=find_namespace_packages(include=[name + "*"]),
+    packages=find_namespace_packages(include=[f"{name}*"]),
     license="APACHE-2.0-ONLY",
     include_package_data=True,
     zip_safe=False,
@@ -77,6 +77,6 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Application Frameworks",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "License :: OSI Approved :: Apache Software License"
+        "License :: OSI Approved :: Apache Software License",
     ],
 )
